@@ -1,0 +1,54 @@
+buildscript {
+	ext {
+		springBootVersion = '2.7.3'
+	}
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+
+	dependencies{
+		classpath "com.lavkesh:spring-boot-common:1.0.0"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+	}
+}
+
+plugins {
+	id 'idea'
+	id "org.springframework.boot" version "$springBootVersion" apply false
+}
+
+group 'com.lavkesh'
+version '1.0.0'
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.lavkesh.spring-boot-common'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+bootJar {
+	mainClass = 'com.lavkesh.abc.Application'
+	archivesBaseName = 'abc-microservice'
+}
+
+jar {
+	enabled = false
+}
+
+dependencies {
+	implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+	useJUnitPlatform()
+}

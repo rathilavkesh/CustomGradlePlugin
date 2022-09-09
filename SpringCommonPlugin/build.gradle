@@ -1,0 +1,48 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'com.lavkesh'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    ext {
+        spotlessVersion = '6.10.0'
+        springDepManVersion = '1.0.13.RELEASE'
+    }
+
+    implementation 'org.codehaus.groovy:groovy-all:2.3.11'
+
+
+    // https://mvnrepository.com/artifact/io.spring.gradle/dependency-management-plugin
+    implementation "io.spring.gradle:dependency-management-plugin:$springDepManVersion"
+
+    // https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-plugin-gradle
+    implementation "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion"
+}
+
+gradlePlugin {
+    plugins {
+        springBootCommonPlugin {
+            id = 'com.lavkesh.spring-boot-common'
+            implementationClass = 'com.lavkesh.plugin.springBootCommon.CommonPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
