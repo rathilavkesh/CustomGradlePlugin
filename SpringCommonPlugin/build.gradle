@@ -22,7 +22,6 @@ dependencies {
 
     implementation 'org.codehaus.groovy:groovy-all:2.3.11'
 
-
     // https://mvnrepository.com/artifact/io.spring.gradle/dependency-management-plugin
     implementation "io.spring.gradle:dependency-management-plugin:$springDepManVersion"
 
